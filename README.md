@@ -18,14 +18,15 @@ Type heimdall detect.
 Tap OK on the Android permission popup.
 Press ENTER in Termux to finish the handshake.
 
-# Command Examples
+# Command Examples:
+
 since This Is A full Port of heimdall v2.2.2, you can use all standard commands. here is how To structure them:
-```
 detect connection
 ```bash
 heimdall detect
 ```
 view device info
+```bash
 heimdall device-info
 ```
 flash recovery
