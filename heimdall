@@ -1,0 +1,28 @@
+#!/data/data/com.termux/files/usr/bin/sh
+
+# 1. Bypass USB check for non-flashing commands
+if [ "$1" = "version" ] || [ "$1" = "help" ] || [ -z "$1" ]; then
+    ~/Heimdall/build/bin/heimdall "$@"
+    exit 0
+fi
+
+# 2. Isolate the device path for flashing commands
+DEV=$(termux-usb -l | grep -o '/dev/bus/usb/[0-9]*/[0-9]*' | head -n 1)
+
+if [ -z "$DEV" ]; then
+    echo "[-] No Samsung device found. Check OTG/Download Mode."
+    exit 1
+fi
+
+echo "[!] Device found: $DEV"
+echo "[!] Requesting USB permission..."
+
+# 3. Trigger the popup once
+termux-usb -r "$DEV"
+
+# 4. Wait for user to confirm
+echo "[?] Tap 'OK' on your screen, then press [ENTER] here to continue..."
+read dummy
+
+# 5. Execute with the File Descriptor
+termux-usb -e "$DEV" ~/Heimdall/build/bin/heimdall "$@"
