@@ -1,0 +1,41 @@
+#!/data/data/com.termux/files/usr/bin/sh
+BINARY="$PREFIX/bin/heimdall-binary"
+
+# 1. Bypass for help/version
+if [ -z "$1" ] || [ "$1" = "help" ] || [ "$1" = "--help" ] || [ "$1" = "version" ]; then
+    $BINARY "$@"
+    exit 0
+fi
+
+# 2. Command Validation
+VALID_CMDS="detect|device-info|download-pit|flash|print-pit|close-pc-screen|help|version"
+if ! echo "$1" | grep -Eq "^($VALID_CMDS)$"; then
+    echo "Error: '$1' is unrecognized. Use 'heimdall help' for help."
+    exit 1
+fi
+
+# 3. Simple Flash Help (No full help menu clutter)
+if [ "$1" = "flash" ] && [ -z "$2" ]; then
+    echo "=========================================="
+    echo "📌 HOW TO FLASH (Simple Guide)"
+    echo "=========================================="
+    echo "Structure: heimdall flash --PARTITION_NAME file.img"
+    echo ""
+    echo "Example: heimdall flash --RECOVERY recovery.img"
+    echo "Example: heimdall flash --BOOT boot.img --RECOVERY recovery.img"
+    echo "------------------------------------------"
+    echo "Note: Use 'heimdall help flash' for technical flags like --no-reboot."
+    exit 0
+fi
+
+# 4. USB Handshake
+DEV=$(termux-usb -l | grep -o '/dev/bus/usb/[0-9]*/[0-9]*' | head -n 1)
+if [ -z "$DEV" ]; then
+    echo "[-] No Samsung device found. Check OTG & Download Mode."
+    exit 1
+fi
+
+termux-usb -r "$DEV"
+echo "[?] Tap 'OK' on the system popup, then press [ENTER] to continue..."
+read dummy
+termux-usb -e "$DEV" $BINARY "$@"
