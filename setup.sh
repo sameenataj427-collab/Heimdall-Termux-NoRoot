@@ -3,13 +3,8 @@
 echo "[*] Updating and Upgrading Termux packages..."
 pkg update -y && pkg upgrade -y
 
-echo "[*] Installing dependencies (termux-api, libusb, curl)..."
-pkg install termux-api libusb curl -y
-
-echo "[*] Downloading patched Heimdall binary..."
-# This points directly to the binary in your repository
-curl -L https://githubusercontent.com -o $PREFIX/bin/heimdall-binary
-chmod +x $PREFIX/bin/heimdall-binary
+echo "[*] Installing dependencies (termux-api, libusb)..."
+pkg install termux-api libusb -y
 
 echo "[*] Creating the no-root wrapper script..."
 cat << 'EOF' > $PREFIX/bin/heimdall
@@ -55,5 +50,5 @@ EOF
 
 chmod +x $PREFIX/bin/heimdall
 
-echo "[+] Success! You can now use 'heimdall' without root."
+echo "[+] Success! The no-root wrapper is now active."
 echo "[+] Connect your phone and try: heimdall detect"
