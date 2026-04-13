@@ -1,33 +1,48 @@
 #!/data/data/com.termux/files/usr/bin/sh
 
-echo "[*] Fixing broken packages and updating..."
-# This clears the libxml2 error you see in the screenshot
-apt --fix-broken install -y
-pkg update -y && pkg upgrade -y
+echo "=========================================="
+echo "🚀 HEIMDALL NO-ROOT SETUP"
+echo "=========================================="
 
-echo "[*] Installing necessary dependencies..."
-pkg install -y libusb termux-api binutils libxml2
+# 1. Attempt to fix any existing broken packages (Safe for all users)
+echo "[*] Checking system health..."
+apt --fix-broken install -y > /dev/null 2>&1
 
-echo "[*] Moving Heimdall files to $PREFIX/bin..."
+# 2. Install only the essential dependencies
+# We use 'pkg install' as it handles the repo mirrors better for new users
+echo "[*] Installing dependencies (libusb, termux-api)..."
+pkg install -y libusb termux-api binutils 
 
-# 1. Move the wrapper script
+# 3. Check for the termux-api helper
+if ! command -v termux-usb > /dev/null; then
+    echo "[!] Warning: termux-usb not found."
+    echo "[!] Please ensure you have the 'Termux:API' app installed from F-Droid."
+fi
+
+echo "[*] Installing Heimdall components..."
+
+# 4. Move the wrapper script (Brain)
 if [ -f "./heimdall" ]; then
     mv ./heimdall $PREFIX/bin/
     chmod +x $PREFIX/bin/heimdall
-    echo "[+] Moved heimdall wrapper to $PREFIX/bin/"
+    echo "[+] Wrapper script installed."
 else
-    echo "[!] Error: heimdall wrapper not found!"
+    echo "[!] Error: 'heimdall' file missing from download."
+    exit 1
 fi
 
-# 2. Move the engine binary
+# 5. Move the binary engine (Engine)
 if [ -f "./heimdall-binary" ]; then
     mv ./heimdall-binary $PREFIX/bin/
     chmod +x $PREFIX/bin/heimdall-binary
-    echo "[+] Moved heimdall-binary to $PREFIX/bin/"
+    echo "[+] Binary engine installed."
 else
-    echo "[!] Error: heimdall-binary not found!"
+    echo "[!] Error: 'heimdall-binary' file missing from download."
+    exit 1
 fi
 
 echo "=========================================="
-echo "✅ Setup Complete!"
+echo "✅ SETUP SUCCESSFUL"
 echo "=========================================="
+echo "Usage: Type 'heimdall' to start."
+echo "Note: Connect your phone in Download Mode via OTG."
