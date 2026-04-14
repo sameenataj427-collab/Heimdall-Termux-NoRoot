@@ -16,7 +16,7 @@ Smart Handshake: Handles the USB permission popup and execute flow automatically
 First install Termux and Termux:api from Frroid or GitHub, dont use Termux from tge playstore, its an outdated version and dosent have the nessary packages needed for the tool to run
 
 Run these commands in your Termux:
-# give termux storage permission
+# Give termux storage permission
 ```bash
 termux-setup-storage
 ```
