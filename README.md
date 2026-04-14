@@ -13,7 +13,14 @@ Smart Handshake: Handles the USB permission popup and execute flow automatically
 
 📦 **Installation**
 
-Run this single command in your Termux:
+First install Termux and Termux:api from Frroid or GitHub, dont use Termux from tge playstore, its an outdated version and dosent have the nessary packages needed for the tool to run
+
+Run these commands in your Termux:
+# give termux storage permission
+```bash
+termux-setup-storage
+```
+# Install heildall in termux
 ```bash
 curl -LO https://raw.githubusercontent.com/sameenataj427-collab/Heimdall-Termux-NoRoot/main/heimdall \
      -LO https://raw.githubusercontent.com/sameenataj427-collab/Heimdall-Termux-NoRoot/main/heimdall-binary \
