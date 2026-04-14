@@ -11,9 +11,9 @@ No Root Required: Uses Android's native USB File Descriptors.
 Automated Setup: Updates your packages and installs dependencies for you.
 Smart Handshake: Handles the USB permission popup and execute flow automatically. 
 
-📦 **Installation**
+# Guid To Install The Tool 👇👇
 
-First install Termux and Termux:api from Frroid or GitHub, dont use Termux from tge playstore, its an outdated version and dosent have the nessary packages needed for the tool to run
+First install Termux and Termux:api from Fdroid or GitHub, dont use termux from playstore, that is a outdated version and it doesn't have the nessary pakages for the tool to run
 
 # Run these commands in termux
 # Give termux storage permission
