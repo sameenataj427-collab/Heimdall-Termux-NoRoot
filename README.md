@@ -33,7 +33,7 @@ Smart Handshake: Handles the USB permission popup and execute flow automatically
 
 # Guid To Install The Tool 👇👇
 
-First install [Termux a](https://f-droid.org/repo/com.termux_1022.apk)nd [Termux:api](https://f-droid.org/repo/com.termux.api_1002.apk) from Fdroid or GitHub, dont use termux from playstore, that is a outdated version and it doesn't have the nessary pakages for the tool to run
+First install [Termux](https://f-droid.org/repo/com.termux_1022.apk) and [Termux:api](https://f-droid.org/repo/com.termux.api_1002.apk) from Fdroid or GitHub, dont use termux from playstore, that is a outdated version and it doesn't have the nessary pakages for the tool to run
 
 # after downloading termux and termux api, open termux and run these commands in it
 
